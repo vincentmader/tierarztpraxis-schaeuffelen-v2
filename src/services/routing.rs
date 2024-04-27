@@ -1,6 +1,9 @@
-use crate::screens::{
-    AnfahrtScreen, BilderScreen, HomeScreen, ImpressumScreen, InformationenScreen,
-    LeistungenScreen, NotfallScreen, PageNotFoundScreen, ServiceLinksScreen,
+use crate::{
+    components::{MainFooter, MainNavigationBar},
+    screens::{
+        AnfahrtScreen, BilderScreen, HomeScreen, ImpressumScreen, InformationenScreen,
+        LeistungenScreen, NotfallScreen, PageNotFoundScreen, ServiceLinksScreen,
+    },
 };
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -43,7 +46,9 @@ pub fn switch(routes: Route) -> Html {
 
     html!(
         <div>
+            <MainNavigationBar />
             { screen }
+            <MainFooter />
         </div>
     )
 }
