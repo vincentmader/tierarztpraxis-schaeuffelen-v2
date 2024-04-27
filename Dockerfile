@@ -12,6 +12,7 @@ EXPOSE 8080
 WORKDIR /var/www/yew-client
 
 # Compile Cargo crate.
+COPY ./img ./img
 COPY ./src ./src
 COPY ./Cargo.lock .
 COPY ./Cargo.toml .
