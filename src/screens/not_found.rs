@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 #[function_component]
-pub fn PageNotFoundScreen() -> Html {
+pub fn NotFoundScreen() -> Html {
     html! {
         <div>
             {"404"}

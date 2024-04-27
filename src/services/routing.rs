@@ -1,10 +1,11 @@
 use crate::{
-    components::{MainFooter, MainNavigationBar},
+    components::{MainFooter, MainHero, MainNavigationBar, MainSideBar},
     screens::{
         AnfahrtScreen, BilderScreen, HomeScreen, ImpressumScreen, InformationenScreen,
-        LeistungenScreen, NotfallScreen, PageNotFoundScreen, ServiceLinksScreen,
+        LeistungenScreen, NotFoundScreen, NotfallScreen, ServiceLinksScreen,
     },
 };
+use stylist::css;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -31,8 +32,25 @@ pub enum Route {
     NotFound,
 }
 
-pub fn switch(routes: Route) -> Html {
-    let screen = match routes {
+impl Route {
+    pub fn to_title_string(&self) -> String {
+        match self {
+            Self::Home => "Willkommen",
+            Self::Anfahrt => "Anfahrt",
+            Self::Bilder => "Bilder",
+            Self::Impressum => "Impressum",
+            Self::Informationen => "Informationen",
+            Self::Leistungen => "Leistungen",
+            Self::Notfall => "Notfall",
+            Self::ServiceLinks => "Service / Links",
+            Self::NotFound => "404",
+        }
+        .to_owned()
+    }
+}
+
+pub fn switch(route: Route) -> Html {
+    let screen = match route {
         Route::Anfahrt => html! { <AnfahrtScreen /> },
         Route::Bilder => html! { <BilderScreen /> },
         Route::Home => html! { <HomeScreen /> },
@@ -40,14 +58,38 @@ pub fn switch(routes: Route) -> Html {
         Route::Informationen => html! { <InformationenScreen /> },
         Route::Leistungen => html! { <LeistungenScreen /> },
         Route::Notfall => html! { <NotfallScreen /> },
-        Route::NotFound => html! { <PageNotFoundScreen /> },
+        Route::NotFound => html! { <NotFoundScreen /> },
         Route::ServiceLinks => html! { <ServiceLinksScreen /> },
     };
 
+    let class = css!(
+        "
+            width: 100%;
+
+            .content {
+            }
+            span.left {
+                display: inline-block;
+                width: 70%;
+                float: left;
+            }
+            span.right {
+                display: inline-block;
+                width: 30%;
+            }
+        "
+    );
+
     html!(
-        <div>
-            <MainNavigationBar />
-            { screen }
+        <div {class}>
+            <MainNavigationBar route={route.clone()} />
+            <span class="left">
+                <MainHero route={route} />
+                <div class="content">
+                    { screen }
+                </div>
+            </span>
+            <span class="right"><MainSideBar /></span>
             <MainFooter />
         </div>
     )

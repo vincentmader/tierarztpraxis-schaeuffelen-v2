@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+chrono = "0.4.38"
+
+[dependencies.stylist]
+version = "0.13.0"
+features = ["yew", "yew_integration", "yew_use_style"]
 
 [dependencies.yew]
 version = "0.21"
